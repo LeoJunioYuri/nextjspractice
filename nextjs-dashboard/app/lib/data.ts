@@ -69,7 +69,7 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
-    const data = await Promise.all([
+    const data = await Promise.all([ //Promise.all => parallel data fetching
       invoiceCountPromise,
       customerCountPromise,
       invoiceStatusPromise,
@@ -177,7 +177,6 @@ export async function fetchInvoiceById(id: string) {
 }
 
 export async function fetchCustomers() {
-  noStore(); //analisar remover depois
   try {
     const data = await sql<CustomerField>`
       SELECT
@@ -196,7 +195,6 @@ export async function fetchCustomers() {
 }
 
 export async function fetchFilteredCustomers(query: string) {
-  noStore(); //analisar remover depois
   try {
     const data = await sql<CustomersTableType>`
 		SELECT
